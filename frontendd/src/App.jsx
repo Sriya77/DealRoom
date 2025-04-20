@@ -1,6 +1,5 @@
 
 import { Navigate, Route, Routes } from 'react-router-dom'
-// import './App.css'
 import NavBar from './components/NavBar'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -8,14 +7,17 @@ import SignUpPage from './pages/SignUpPage'
 import SettingsPage from './pages/SettingsPage'
 import ProfilePage from './pages/ProfilePage'
 import { useAuthStore } from './store/useAuthStore'
+import { useThemeStore } from './store/useThemeStore'
+
 import { useEffect } from 'react'
 
 import { Loader } from "lucide-react";
-import AuthImagePattern from './components/AuthImagePattern'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
-  const {authUser, checkAuth, isCheckingAuth} = useAuthStore()
+  const {authUser, checkAuth, isCheckingAuth} = useAuthStore();
+  const {theme} = useThemeStore();
 
   useEffect(()=>{
     checkAuth()
@@ -31,7 +33,7 @@ function App() {
     );
 
   return (
-    <>
+    <div data-theme ={theme}>
      <NavBar/>
      <Routes>
       <Route path='/' element = {authUser?<HomePage/>:<Navigate to="/login" />} />
@@ -41,7 +43,9 @@ function App() {
       <Route path='/profile' element = {authUser? <ProfilePage/> :<Navigate to="/login" />} />
 
      </Routes>
-    </>
+     
+     <Toaster />
+    </div>
   )
 }
 
