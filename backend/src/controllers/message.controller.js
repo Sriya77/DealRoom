@@ -38,9 +38,7 @@ export const sendMessage = async (req, res) => {
   try {
     const { text } = req.body;
     const { id: receiverId } = req.params;
-    const senderId = req.user._id;
-
-   
+    const senderId = req.user._id; 
 
     const newMessage = new Message({
       senderId,
@@ -53,7 +51,7 @@ export const sendMessage = async (req, res) => {
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("newMessage", newMessage);
-    }
+    } 
 
     res.status(201).json(newMessage);
   } catch (error) {
