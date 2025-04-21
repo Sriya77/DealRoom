@@ -9,6 +9,7 @@ import messageRoutes from "./routes/message.route.js"
 
 import { connectDB } from "./lib/db.js";
 import { app, server } from "./lib/socket.js";
+import path from "path";
 
 
 dotenv.config()
@@ -23,6 +24,14 @@ app.use(cors({
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
+
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+    app.get("*", (req, res)=>{
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    })
+}
 
 
 server.listen(PORT, ()=>{
