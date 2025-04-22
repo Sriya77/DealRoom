@@ -17,5 +17,11 @@
     "url": "https://github.com/Sriya77/DealRoom/issues"
   },
   "homepage": "https://github.com/Sriya77/DealRoom#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+  },
+  "engines": {
+  "node": "18.x"
+  }
+
 }
